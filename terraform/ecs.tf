@@ -12,11 +12,12 @@ data "template_file" "app" {
   template = file("./templates/ecs/app_${each.key}.json.tpl")
 
   vars = {
-    app_image      = var.app_image
+    app_image      = aws_ecr_repository.repository.repository_url
     app_port       = var.app_port
     fargate_cpu    = var.fargate_cpu
     fargate_memory = var.fargate_memory
     aws_region     = var.aws_region
+    app_env        = each.key
   }
 }
 
@@ -51,6 +52,12 @@ resource "aws_ecs_service" "main" {
     target_group_arn = aws_alb_target_group.app[each.key].id
     container_name   = "app-${each.key}"
     container_port   = var.app_port
+  }
+
+  lifecycle {
+    ignore_changes = [
+      "task_definition"
+    ]
   }
 
   depends_on = [aws_alb_listener.front_end, aws_iam_role_policy_attachment.ecs_task_execution_role]

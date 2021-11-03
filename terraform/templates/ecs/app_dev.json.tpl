@@ -5,6 +5,12 @@
     "cpu": ${fargate_cpu},
     "memory": ${fargate_memory},
     "networkMode": "awsvpc",
+    "environment": [
+      {
+        "name": "APP_ENV",
+        "value": "${app_env}"
+      }
+    ],
     "logConfiguration": {
         "logDriver": "awslogs",
         "options": {

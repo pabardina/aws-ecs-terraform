@@ -24,7 +24,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           AWS_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-        run: cd terraform; terraform init
+        run: cd terraform; terraform init -backend-config "bucket=terraform-pa-ecs"
 
       - name: Terraform Validate 
         id: terraform-validate

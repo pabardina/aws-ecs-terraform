@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "terraform-pa-ecs"
+    bucket = "override-me" # will be override in the terraform cli
     key    = "terraform.tfsate"
     region = "ca-central-1"
   }
