@@ -48,7 +48,7 @@ terraform plan
 terraform apply
 ```
 
-Once everthing is deployed. Get the domain name of your production ECS cluster and create a CNAME in your domain name provider pointing to our ALB.
+Once everthing is deployed. Get the URL of your ALB and create a CNAME in your domain name provider pointing to this URL.
 
 
 ## Using CI/CD
@@ -57,6 +57,15 @@ There are two Github Actions.
 
 * `terraform.yml` which is executed only when there is a changed in the `terraform` folder. It executes `terraform apply`.
 * `deploy.yml` which is executed only when there is a changed in the `src` folder. It pushes a new image on ECR and update the image in the ECS task.
+
+Secrets to add in github secret:
+
+```
+AWS_ACCESS_KEY_ID
+AWS_DEFAULT_REGION
+AWS_SECRET_ACCESS_KEY
+ECR_REGISTRY
+```
 
 
 # Auto Scaling
